@@ -8,6 +8,7 @@ type Query {
 
 type Mutation {
     createProduct(name: String!, price: Float!, category: String!): Product
+    login(username: String!, password: String!): AuthData 
 }
 
 type Product {
@@ -16,4 +17,8 @@ type Product {
     price: Float
     category: String
     attributes: String # GraphQL ไม่มี Map type ตรงๆ เราจะ return เป็น JSON String แทน หรือ Custom Scalar
+}
+type AuthData {
+    token: String
+    username: String
 }

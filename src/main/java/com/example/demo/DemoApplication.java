@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
 // Explicitly register Mongo repositories because the main class package (com.example.demo)
 // differs from the domain package (com.example.catalog). Without this, Spring Boot's
@@ -14,6 +15,8 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @SpringBootApplication(scanBasePackages = "com.example.catalog")
 @EnableMongoRepositories(basePackages = "com.example.catalog.repository")
 @EnableCaching // เปิดใช้งานระบบ Caching
+@EnableMethodSecurity(securedEnabled = true) // เปิดใช้งานการล็อก method
+
 public class DemoApplication {
 
 	public static void main(String[] args) {

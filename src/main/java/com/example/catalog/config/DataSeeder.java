@@ -1,8 +1,12 @@
 package com.example.catalog.config;
 
 import com.example.catalog.model.Product;
+import com.example.catalog.model.User;
 import com.example.catalog.repository.ProductRepository;
+import com.example.catalog.repository.UserRepository;
+
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Map;
@@ -11,14 +15,16 @@ import java.util.Map;
 public class DataSeeder implements CommandLineRunner {
 
     private final ProductRepository repository;
+    private final UserRepository userRepository;
 
-    public DataSeeder(ProductRepository repository) {
+    public DataSeeder(ProductRepository repository, UserRepository userRepository) {
         this.repository = repository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        // repository.deleteAll(); // ล้างข้อมูลเก่าก่อน
+        repository.deleteAll(); // ล้างข้อมูลเก่าก่อน
 
         Product laptop = new Product(null, "Gaming Laptop", 45000.0, "Electronics",
                 Map.of("cpu", "i9", "ram", "32GB", "brand", "Alienware"));
@@ -45,6 +51,14 @@ public class DataSeeder implements CommandLineRunner {
 
         List<Product> brandAlienware = repository.findByBrandInAttributes("Alienware");
         System.out.println(">>> Brand 'Alienware' count: " + brandAlienware.size());
+
+        userRepository.deleteAll();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        // สร้าง User: admin / password123
+        User admin = new User("admin", encoder.encode("password123"), "ADMIN");
+        userRepository.save(admin);
+        System.out.println(">>> Mock User Created: admin / password123");
+
     }
 }
 
