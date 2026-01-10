@@ -3,6 +3,7 @@ package com.example.demo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
@@ -12,6 +13,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 // bean fails to register.
 @SpringBootApplication(scanBasePackages = "com.example.catalog")
 @EnableMongoRepositories(basePackages = "com.example.catalog.repository")
+@EnableCaching // เปิดใช้งานระบบ Caching
 public class DemoApplication {
 
 	public static void main(String[] args) {

@@ -11,6 +11,11 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
       - mongo-data:/data/db
-
+  # เพิ่ม Redis ตรงนี้
+  redis:
+    image: redis:alpine
+    container_name: my-redis-lab
+    ports:
+      - "6379:6379"
 volumes:
   mongo-data:

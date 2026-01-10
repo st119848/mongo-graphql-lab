@@ -11,7 +11,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "products") // ระบุชื่อ Collection (คล้าย Table)
-public class Product {
+public class Product implements java.io.Serializable {
     @Id
     private String id;
     private String name;
