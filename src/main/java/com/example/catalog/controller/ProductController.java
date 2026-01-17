@@ -24,7 +24,7 @@ public class ProductController {
         this.service = service;
         this.objectMapper = objectMapper;
     }
-    
+
     @PreAuthorize("isAuthenticated()") // ต้อง Login ก่อนถึงจะเรียกได้
     @QueryMapping // ตรงกับ type Query { products }
     public List<Product> products() {
@@ -45,7 +45,7 @@ public class ProductController {
     public Product createProduct(@Argument String name, @Argument Double price, @Argument String category) {
         Product p = new Product(null, name, price, category, null);
         
-        return service.saveProduct(p);
+        return service.createProduct(p);
     }
 
     // Field Resolver พิเศษสำหรับ attributes
