@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 5s # ดึงข้อมูลทุก 5 วินาที
+
+scrape_configs:
+  - job_name: 'catalog-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['catalog-service:8080'] # ชื่อ Service ใน Docker Compose

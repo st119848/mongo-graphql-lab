@@ -23,12 +23,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(AbstractHttpConfigurer::disable) // ปิด CSRF เพราะเราใช้ JWT (Stateless)
+            .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/graphiql/**", "/graphql/**").permitAll() // เปิดให้เข้าถึง GraphQL Endpoint (เดี๋ยวเราไปจัดการ Logic ข้างใน หรือถ้าจะเข้มงวดให้เปิดแค่ Login Mutation ก็ได้ แต่เพื่อให้ง่ายต่อการ Test เปิดไว้ก่อน)
+                // อนุญาต Actuator endpoints สำหรับ Prometheus
+                .requestMatchers("/actuator/**").permitAll()
+                // อนุญาต GraphQL
+                .requestMatchers("/graphiql/**", "/graphql/**").permitAll()
+                // เส้นทางอื่นต้อง authenticate
                 .anyRequest().authenticated()
             )
-            // ใส่ Filter ของเราไปแทรกก่อน Filter เดิมของ Spring
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); 
         
         return http.build();
