@@ -103,6 +103,17 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     networks:
       - catalog-network
+  sonarqube:
+    image: sonarqube:community
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true # ปิด check บางอย่างเพื่อให้รันใน Lab ง่ายขึ้น
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
 
 networks:
   catalog-network:
@@ -111,3 +122,6 @@ networks:
 volumes:
   mongo-data3:
   kafka-data:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
