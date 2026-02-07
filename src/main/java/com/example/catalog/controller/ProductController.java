@@ -23,6 +23,8 @@ public class ProductController {
     public ProductController(ProductService service, ObjectMapper objectMapper) {
         this.service = service;
         this.objectMapper = objectMapper;
+        //
+        System.out.println(">>> ProductController initialized");
     }
 
     @PreAuthorize("isAuthenticated()") // ต้อง Login ก่อนถึงจะเรียกได้
